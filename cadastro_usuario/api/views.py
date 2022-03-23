@@ -14,7 +14,8 @@ class UserView(GenericViewSet):
         serializer.save()
         return Response(
             data={
-                'mensagem': 'Usuário cadastrado com sucesso'
+                'mensagem': 'Usuário cadastrado com sucesso',
+                'dados': serializer.data
             },
             status=201
         )
