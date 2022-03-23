@@ -1,8 +1,20 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
+from cadastro_usuario.api.serializers import UserSerializer
+from cadastro_usuario.api.models import Usuario
 
 
 class UserView(GenericViewSet):
+    serializer_class = UserSerializer
+    queryset = Usuario.objects.all()
 
     def create(self, request):
-        return Response(data={'mensagem': 'usuario cadastrado cm sucesso'}, status=201)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            data={
+                'mensagem': 'Usuário cadastrado com sucesso'
+            },
+            status=201
+        )
