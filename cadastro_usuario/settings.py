@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%2_rd&lr6l%c$gp+^aj!9%w9)$-kpc4$_n&*oic*%5sl$_1lp#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cadastro_usuario.api'
 ]
 
 MIDDLEWARE = [
@@ -73,11 +77,11 @@ WSGI_APPLICATION = 'cadastro_usuario.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+parser_database = dj_database_url.parse(config('DATABASE_URL', default=default_db_url), conn_max_age=600)
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': parser_database
 }
 
 
