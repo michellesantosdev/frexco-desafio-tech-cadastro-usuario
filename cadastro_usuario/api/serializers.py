@@ -6,7 +6,7 @@ from rest_framework.serializers import ModelSerializer
 from cadastro_usuario.api.models import Usuario
 
 
-class UserSerializer(ModelSerializer):
+class UsuarioSerializer(ModelSerializer):
 
     class Meta:
         model = Usuario

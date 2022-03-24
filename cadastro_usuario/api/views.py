@@ -1,11 +1,11 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
-from cadastro_usuario.api.serializers import UserSerializer
+from cadastro_usuario.api.serializers import UsuarioSerializer
 from cadastro_usuario.api.models import Usuario
 
 
-class UserView(GenericViewSet):
-    serializer_class = UserSerializer
+class UsuarioView(GenericViewSet):
+    serializer_class = UsuarioSerializer
     queryset = Usuario.objects.all()
 
     def create(self, request):

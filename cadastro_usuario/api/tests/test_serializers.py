@@ -1,7 +1,7 @@
 import datetime
 import pytest
 
-from ..serializers import UserSerializer
+from ..serializers import UsuarioSerializer
 
 
 pytestmark = [pytest.mark.django_db]
@@ -14,7 +14,7 @@ def test_deve_deserializar_usuario():
         'data_nascimento': '2022-02-23',
         }
 
-    usuario_serializado = UserSerializer(data=dados_do_usuario)
+    usuario_serializado = UsuarioSerializer(data=dados_do_usuario)
     usuario_serializado.is_valid()
     usuario_objeto = usuario_serializado.save()
 
@@ -24,7 +24,7 @@ def test_deve_deserializar_usuario():
 
 
 def test_deve_serializer_usuario(usuario):
-    usuario_serializado = UserSerializer(usuario)
+    usuario_serializado = UsuarioSerializer(usuario)
 
     assert usuario_serializado.data['login'] == 'Michelle'
     assert usuario_serializado.data['senha'] == '123'
