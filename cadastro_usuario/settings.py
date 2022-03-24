@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cadastro_usuario.api'
+    'cadastro_usuario.api',
+    'drf_yasg'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
