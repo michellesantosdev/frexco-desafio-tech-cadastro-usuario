@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+from cadastro_usuario.api.urls import app_name
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+schema_view = get_schema_view(openapi.Info("FREXCO_CADASTRO_USUARIO", 'v1'), public=True)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include('cadastro_usuario.api.urls', namespace=app_name)),
+    path('swagger/', schema_view.with_ui(), name='schema-swagger-ui'),
+
 ]
