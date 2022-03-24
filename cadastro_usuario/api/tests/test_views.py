@@ -18,12 +18,9 @@ def test_deve_criar_usuario(client: Client):
     assert response.status_code == 201
 
     assert response.data['mensagem'] == 'Usuário cadastrado com sucesso'
-    assert response.data['dados'] == {
-        'id': 1,
-        'login': 'Michelle',
-        'senha': '123',
-        'data_nascimento': '2022-03-23'
-    }
+    assert response.data['dados']['login'] == 'Michelle'
+    assert response.data['dados']['senha'] == '123'
+    assert response.data['dados']['data_nascimento'] == '2022-03-23'
 
 
 def test_deve_criar_usuario_com_senha_aleatoria(client: Client):
@@ -41,3 +38,21 @@ def test_deve_criar_usuario_com_senha_aleatoria(client: Client):
     assert response.data['dados']['login'] == 'Michelle'
     assert response.data['dados']['senha'] is not None
     assert response.data['dados']['data_nascimento'] == '2022-03-23'
+
+
+def test_deve_listar_usuario(client: Client):
+    data_requests = {
+        "login": 'Michelle',
+        "senha": "123",
+        "data_nascimento": "2022-03-23",
+    }
+    client.post(path='/api/v1/usuario', data=data_requests)
+
+    response = client.get('/api/v1/usuario')
+
+    assert response.status_code == 200
+
+    dados = response.data[0]
+    assert dados['login'] == 'Michelle'
+    assert dados['senha'] == '123'
+    assert dados['data_nascimento'] == '2022-03-23'
